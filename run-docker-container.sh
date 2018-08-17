@@ -6,10 +6,10 @@ nvidia-docker run -it \
    --env="DISPLAY" \
    --env="QT_X11_NO_MITSHM=1" \
    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-   -v $(pwd):/home/project \
+   -v $PWD:/home/project \
    --ipc=host \
    --name DL-With-PyTorch \
-   ksjdk/deeplearning:pytorch04-cu80-jupyter \
+   ksjdk/deep-learning:pytorch04-cu80-py36-gpu \
    bash
 
 xhost -local:root
