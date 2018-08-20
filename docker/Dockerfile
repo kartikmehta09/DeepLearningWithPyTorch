@@ -4,10 +4,10 @@
 # python        3.6    (apt)
 # jupyter       latest (pip)
 # pytorch       0.4.0  (pip)
-# opencv        3.4.1  (git)
+# opencv        3.4.1  (git) x
 # ==================================================================
 
-FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     GIT_CLONE="git clone --depth 10" && \
@@ -26,8 +26,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         ca-certificates \
         cmake \
         wget \
-        git \
-        vim \
+        git \     
         && \
 
 # ==================================================================
@@ -74,7 +73,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        http://download.pytorch.org/whl/cu80/torch-0.4.0-cp36-cp36m-linux_x86_64.whl \
+        http://download.pytorch.org/whl/cu90/torch-0.4.0-cp36-cp36m-linux_x86_64.whl \
         torchvision \
         && \
 
@@ -82,29 +81,29 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # opencv
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        libatlas-base-dev \
-        libgflags-dev \
-        libgoogle-glog-dev \
-        libhdf5-serial-dev \
-        libleveldb-dev \
-        liblmdb-dev \
-        libprotobuf-dev \
-        libsnappy-dev \
-        protobuf-compiler \
-        && \
+#    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+#        libatlas-base-dev \
+#        libgflags-dev \
+#        libgoogle-glog-dev \
+#        libhdf5-serial-dev \
+#        libleveldb-dev \
+#        liblmdb-dev \
+#        libprotobuf-dev \
+#        libsnappy-dev \
+#        protobuf-compiler \
+#        && \
 
-    $GIT_CLONE --branch 3.4.1 https://github.com/opencv/opencv ~/opencv && \
-    mkdir -p ~/opencv/build && cd ~/opencv/build && \
-    cmake -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D WITH_IPP=OFF \
-          -D WITH_CUDA=OFF \
-          -D WITH_OPENCL=OFF \
-          -D BUILD_TESTS=OFF \
-          -D BUILD_PERF_TESTS=OFF \
-          .. && \
-    make -j"$(nproc)" install && \
+#    $GIT_CLONE --branch 3.4.1 https://github.com/opencv/opencv ~/opencv && \
+#    mkdir -p ~/opencv/build && cd ~/opencv/build && \
+#    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#          -D CMAKE_INSTALL_PREFIX=/usr/local \
+#          -D WITH_IPP=OFF \
+#          -D WITH_CUDA=OFF \
+#          -D WITH_OPENCL=OFF \
+#          -D BUILD_TESTS=OFF \
+#          -D BUILD_PERF_TESTS=OFF \
+#          .. && \
+#    make -j"$(nproc)" install && \
 
 
 # ==================================================================
@@ -121,8 +120,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # ==================================================================
 # tensorboard : 6006 , jupyter notebook : 8888
 # ------------------------------------------------------------------
-EXPOSE 8888 6006
-
+EXPOSE 8888
 
 
 # ==================================================================

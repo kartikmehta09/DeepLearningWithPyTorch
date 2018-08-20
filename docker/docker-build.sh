@@ -1,4 +1,3 @@
-#!/bin/bash
-docker build -t ksjdk/deeplearning:pytorch04-cu80-jupyter .
-docker images
+docker build -t ksjdk/deeplearning:cu90-pt040-py36 .
+
 

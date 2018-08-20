@@ -8,8 +8,8 @@ nvidia-docker run -it \
    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
    -v $PWD:/home/project \
    --ipc=host \
-   --name DL-With-PyTorch \
-   ksjdk/deep-learning:pytorch04-cu80-py36-gpu \
+   --name DLWithPyTorch \
+   ksjdk/deeplearning:cu90-pt040-py36 \
    bash
 
 xhost -local:root
